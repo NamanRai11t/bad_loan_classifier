@@ -42,3 +42,18 @@ def load_data(filename, split=0.8, features=[], blacklist=[], shuffle=True):
 		y_test = data[training_length:, -1]
 
 	return X_train, y_train, X_test, y_test
+
+def mean(l):
+	return sum(l)/len(l)
+
+def normalise_data(X, normalise_indices=[], zero_to_one=True):
+
+	if normalise_indices == []:
+		normalise_indices = range(len(X[0]))
+
+
+	for i in normalise_indices:
+		nu = 0 if zero_to_one else mean(X[:,i])
+		X[:,i] = ( ( X[:,i] - nu ) / (max(X[:, i]) - min(X[:, i]) ) )
+
+	return X
