@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+import matplotlib.pyplot as plt
 
 #Load data from csv file, and break it into an data list of lists (feature set) and a y list. 
 def load_data(filename, split=0.8, features=[], blacklist=[], shuffle=True):
@@ -109,3 +110,18 @@ def normalise_data(X, normalise_indices=[], zero_to_one=True):
 		X[:,i] = ( ( X[:,i] - nu ) / (max(X[:, i]) - min(X[:, i]) ) )
 
 	return X
+
+def plot_helper(X, y, features, feature_set):
+	for feature in features:
+		plt.figure(1, (25,5))
+		ax1 = plt.subplot(121)
+		job_fails = [X[k, feature] for k in range(X.shape[0]) if y[k] == 1]
+		ax1.hist(job_fails)
+		ax1.set_title("Number of people with " + feature_set[feature] + " x who are defaulters")
+
+		ax2 = plt.subplot(122)
+		job_success = [X[k, feature] for k in range(X.shape[0]) if y[k] == 0]
+		ax2.hist(job_success)
+		ax2.set_title("Number of people with " + feature_set[feature] + " x who are not defaulters")
+		plt.savefig(feature_set[feature] + '.png')
+		plt.clf()
