@@ -112,6 +112,12 @@ def normalise_data(X, normalise_indices=[], zero_to_one=True):
 	return X
 
 def plot_helper(X, y, features, feature_set):
+	'''plot_helper(X, y, features, feature_set) -> None
+	Helper function to save figures of the frequency distribution of features.
+	features is a list of the indices of the features you want to plot.
+	feature_set is the list of titles of the features.
+	'''
+	
 	for feature in features:
 		plt.figure(1, (25,5))
 		ax1 = plt.subplot(121)
